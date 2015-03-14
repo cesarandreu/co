@@ -1,15 +1,24 @@
+/**
+ * Universal Module Definition.
+ */
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD
+    define([], factory);
+  } else if (typeof exports === 'object') {
+    // Node, CommonJS-like
+    module.exports = factory();
+  } else {
+    // Browser globals (root is window)
+    root.co = factory();
+  }
+}(this, function () {
 
 /**
  * slice() reference.
  */
 
 var slice = Array.prototype.slice;
-
-/**
- * Expose `co`.
- */
-
-module.exports = co['default'] = co.co = co;
 
 /**
  * Wrap the given generator `fn` into a
@@ -30,6 +39,12 @@ co.wrap = function (fn) {
     return co.call(this, fn.apply(this, arguments));
   }
 };
+
+/**
+ * Expose `co`.
+ */
+
+return co['default'] = co.co = co;
 
 /**
  * Execute the generator function or a generator
@@ -231,3 +246,5 @@ function isGeneratorFunction(obj) {
 function isObject(val) {
   return Object == val.constructor;
 }
+
+}));
